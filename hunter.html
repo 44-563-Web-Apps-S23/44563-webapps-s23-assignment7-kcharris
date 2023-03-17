@@ -22,6 +22,7 @@
 <div id="penalty">Penalty is zero.</div>
 <div class="text-info" onclick="help()">Click for help</div>
 <div id = "help">Help report</div>
+<button onclick="newGame()">NewGame</button>
 
 <div class="flex-container">
     <div class="row">
@@ -81,6 +82,7 @@
     let gameOver = false
 
     function onStart(){
+        setStartLocations()
         let arr = document.querySelectorAll("img")
         arr.forEach((img) => {
             img.onclick = function(){
@@ -88,7 +90,27 @@
             }
         })
     }
-
+    function newGame(){
+        setStartLocations()
+        penalty = 0
+        lastCheck = 0
+        gameOver = false
+        checkCount = 0
+        let imgs = document.getElementsByTagName("img")
+        console.log(imgs)
+        Array.from(imgs).forEach((img) => {
+            img.src = "bush.jpg"
+        })
+        document.getElementById("penalty").innerHTML = "The penalty is: " + penalty
+        document.getElementById("bushes").innerHTML = "The number of bushes checked is " + checkCount
+    }
+    function setStartLocations(){
+        mouseLocation = Math.floor(Math.random() * 24)
+        catLocation = mouseLocation
+        while (catLocation == mouseLocation){
+            catLocation = Math.floor(Math.random() * 24)
+        }
+    }
     function onClick(x){
         if(!gameOver){
             let clickImg = document.getElementById(id_list[x])
