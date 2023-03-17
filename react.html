@@ -12,25 +12,36 @@
 <body>
   <h1>Kevin Speed Check</h1>
 
-  <h2>Timeout - Red in 3 seconds</h2>
-  <div id="targer">Your time</div>
-  <div id="counter">Count</div>
+  <div id="target">Your time</div>
+  <div id="countdown">Count</div>
   
-  <button>Start Timer</button>
+  <button onclick="startTime()">Start Timer</button>
   <button onclick="recordTime()">React</button>
-
-  <button type="button"
-  class="btn btn-primary"
-  onclick="buttonPress2()">
-  Click me change the color.</button>
   
-  <p id="target">I will become red </p>
   
   <script>
-    let reactTime = 0
+    let reactTime = undefined
     function recordTime(){
       reactTime = Date.now()
       console.log(reactTime)
+    }
+    function startTime(){
+      reactTime = undefined
+      let countdown = document.getElementById("countdown")
+      for(let i =0; i < 9; i++){
+        setTimeout(() => {
+          countdown.innerHTML = i
+        }, (8-i)*1000)   
+      }
+      setTimeout(() => {
+        if(reactTime == undefined){
+          document.getElementById("target").innerHTML = "Too Slow"
+        }
+        else{
+          let endTime = Date.now()
+          document.getElementById("target").innerHTML = "Time was " + (endTime - reactTime)
+        }
+      }, 8000)
     }
   function buttonPress1() {
     setTimeout(function(){
