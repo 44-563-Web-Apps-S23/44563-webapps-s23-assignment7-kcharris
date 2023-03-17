@@ -25,7 +25,7 @@
 
 <body>
 	<h1>Kevin builds a delaying queue</h1>
-	<input type="text">
+	<input id="input" type="text">
 	<div class="flex-container" id="target">
 		<div class="delayQ">row item 1</div>   
 		<div class="delayQ">row item 2</div>  
@@ -35,20 +35,38 @@
 	<p> Press the button to create an new element of type div and then add it to the container.
 		</p>
 		<button onclick="makeNewDiv()">Add value</button>
+		<button onclick="get()">Get</button>
+		<button onclick="delay()">Delay</button>
 	
 	
 </body>
 <script>
 	function makeNewDiv(){
+		inputElement = document.getElementById("input")
 		/* make the div and its text */
 		let element = document.createElement("div")
-		element.innerHTML = "an item after 3"
+		element.innerHTML = inputElement.value
 		element.style.color = "orange"
-
+		element.className = "delayQ"
 		/* add it to the container */
 		let container = document.getElementById('target')
 		container.appendChild(element)
 		
+	}
+	function get(){
+		let queueItems = document.getElementsByClassName("delayQ")
+		if(queueItems.length > 0){
+			queueItems[0].remove()
+		}
+	}
+	function delay(){
+		let queueItems = document.getElementsByClassName("delayQ")
+		if(queueItems.length > 1){
+			let removedItem = queueItems[0]
+			queueItems[0].remove()
+			let container = document.getElementById("target")
+			container.appendChild(removedItem)
+		}
 	}
 </script>
 </html>	
